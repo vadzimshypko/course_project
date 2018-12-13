@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Button, Input } from "semantic-ui-react";
 
 class App extends Component {
   constructor(props) {
@@ -56,19 +57,27 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <p>
-          <h>Прошло {this.state.nowTime} секунд с начала</h>
-          <h2>Размер минного поля: {this.state.sizeField}</h2>
-          <button onClick={this.onDecrease}>-</button>
-          <input
+      <div className="app">
+        <header className="app-header">Жизнь</header>
+        <h1>Прошло {this.state.nowTime} секунд с начала</h1>
+        <h2>Размер поля: {this.state.sizeField}</h2>
+        <div>
+          <Button color="green" className="button" onClick={this.onDecrease}>
+            -
+          </Button>
+          <Input
+            className="input-field"
             type="number"
             value={this.state.sizeField}
             onChange={this.onChangeSizeField}
           />
-          <button onClick={this.onIncrease}>+</button>
-        </p>
-        <button onClick={this.createMineField}>Созать минное поле</button>
+          <Button color="green" className="button" onClick={this.onIncrease}>
+            +
+          </Button>
+        </div>
+        <Button color="green" className="button" onClick={this.createMineField}>
+          Создать минное поле
+        </Button>
       </div>
     );
   }
