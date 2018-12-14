@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Field from "./field/Field";
 import { Button, Input } from "semantic-ui-react";
 
 class App extends Component {
@@ -7,7 +8,6 @@ class App extends Component {
     super(props);
     this.state = { sizeField: 2, nowTime: 0 };
 
-    // Привязка необходима, чтобы сделать this доступным в коллбэке
     this.onIncrease = this.onIncrease.bind(this);
     this.onDecrease = this.onDecrease.bind(this);
     this.onChangeSizeField = this.onChangeSizeField.bind(this);
@@ -45,6 +45,7 @@ class App extends Component {
       console.log("Поле слишком большое, введите значение меньше 11");
     } else {
       console.log("Coздать поле");
+      this.refs.canvasField.setNewField(this.state.sizeField);
     }
   }
 
@@ -53,6 +54,7 @@ class App extends Component {
       sizeField: this.state.sizeField,
       nowTime: this.state.nowTime + 1
     });
+    this.refs.canvasField.iteration();
   }
 
   render() {
@@ -78,6 +80,7 @@ class App extends Component {
         <Button color="green" className="button" onClick={this.createMineField}>
           Создать минное поле
         </Button>
+        <Field id="canvasField" sizeField={this.state.sizeField} />
       </div>
     );
   }
