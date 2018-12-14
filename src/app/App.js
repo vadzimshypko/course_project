@@ -6,7 +6,7 @@ import { Button, Input } from "semantic-ui-react";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { sizeField: 2, nowTime: 0 };
+    this.state = { sizeField: 50, nowTime: 0 };
 
     this.onIncrease = this.onIncrease.bind(this);
     this.onDecrease = this.onDecrease.bind(this);
@@ -80,7 +80,12 @@ class App extends Component {
         <Button color="green" className="button" onClick={this.createMineField}>
           Создать минное поле
         </Button>
-        <Field id="canvasField" sizeField={this.state.sizeField} />
+        <Field
+          id="canvasField"
+          width={400}
+          hight={400}
+          sizeField={this.state.sizeField}
+        />
       </div>
     );
   }

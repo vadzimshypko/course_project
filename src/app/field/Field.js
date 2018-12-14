@@ -13,6 +13,8 @@ class Field extends Component {
     this.state = { sizeField: props.sizeField, field: tempField };
     this.iteration = this.iteration.bind(this);
     this.setNewField = this.setNewField.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    setInterval(this.iteration, 1000);
   }
 
   setNewField(sizeNewField) {
@@ -20,13 +22,13 @@ class Field extends Component {
     for (var i = 0; i < sizeNewField; i++) {
       tempField[i] = [];
       for (var j = 0; j < sizeNewField; j++) {
-        tempField[i][j] = (j + i) % 2 === 1 ? true : false;
+        tempField[i][j] = (j + i) % 5 < 2 ? true : false;
       }
     }
     this.setState({ sizeField: sizeNewField, field: tempField });
   }
 
-  iteration = () => {
+  iteration() {
     let newField = [];
     for (let i = 0; i < this.state.sizeField; i++) {
       newField[i] = [];
@@ -73,7 +75,8 @@ class Field extends Component {
       }
     }
     this.setState({ sizeField: this.state.sizeField, field: newField });
-  };
+    this.updateCanvas();
+  }
 
   componentDidMount() {
     this.updateCanvas();
@@ -81,16 +84,31 @@ class Field extends Component {
 
   updateCanvas() {
     const ctx = this.refs.canvas.getContext("2d");
+    let cellLenght = 1000 / this.state.sizeField;
     for (var i = 0; i < this.state.sizeField; i++) {
       for (var j = 0; j < this.state.sizeField; j++) {
         ctx.fillStyle = this.state.field[i][j] ? "green" : "black";
-        ctx.fillRect(i * 10, j * 10, 10, 10);
+        ctx.fillRect(
+          cellLenght * i,
+          cellLenght * j,
+          cellLenght - 1,
+          cellLenght - 1
+        );
       }
     }
   }
 
+  handleClick() {
+    console.log("click");
+  }
   render() {
-    return <canvas ref="canvas" className="canvas-field" />;
+    return (
+      <canvas
+        ref="canvas"
+        className="canvas-field"
+        onClick={this.handleClick}
+      />
+    );
   }
 }
 
